@@ -1,0 +1,67 @@
+[gd_scene load_steps=11 format=2]
+
+[ext_resource path="res://Effects/Bubbling.wav" type="AudioStream" id=1]
+[ext_resource path="res://Interactables/Cauldron.png" type="Texture" id=2]
+[ext_resource path="res://Shadows/LargeShadow.png" type="Texture" id=3]
+[ext_resource path="res://Interactables/InteractZone.tscn" type="PackedScene" id=5]
+
+[sub_resource type="AtlasTexture" id=1]
+atlas = ExtResource( 2 )
+region = Rect2( 0, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=2]
+atlas = ExtResource( 2 )
+region = Rect2( 64, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=3]
+atlas = ExtResource( 2 )
+region = Rect2( 128, 0, 64, 64 )
+
+[sub_resource type="SpriteFrames" id=4]
+animations = [ {
+"frames": [ SubResource( 1 ), SubResource( 2 ), SubResource( 3 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
+
+[sub_resource type="CapsuleShape2D" id=5]
+radius = 9.0
+height = 24.0
+
+[sub_resource type="CircleShape2D" id=6]
+radius = 39.0128
+
+[node name="Cauldron" type="KinematicBody2D"]
+collision_layer = 65
+collision_mask = 2
+
+[node name="Sprite" type="Sprite" parent="."]
+position = Vector2( 1, 12 )
+texture = ExtResource( 3 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+position = Vector2( 0, 17 )
+frames = SubResource( 4 )
+frame = 2
+playing = true
+offset = Vector2( 0, -22.072 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 0, 9 )
+rotation = 1.5708
+shape = SubResource( 5 )
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 1 )
+volume_db = -30.0
+autoplay = true
+max_distance = 200.0
+bus = "Sound"
+
+[node name="InteractZone" parent="." instance=ExtResource( 5 )]
+
+[node name="CollisionShape2D" parent="InteractZone" index="0"]
+shape = SubResource( 6 )
+
+[editable path="InteractZone"]

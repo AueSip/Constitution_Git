@@ -1,0 +1,44 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://Hitboxes Hurtboxes/Hurtbox.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Interactables/Pot.png" type="Texture" id=2]
+[ext_resource path="res://Interactables/Pot.gd" type="Script" id=3]
+[ext_resource path="res://Shadows/MediumShadow.png" type="Texture" id=4]
+
+[sub_resource type="CapsuleShape2D" id=1]
+radius = 4.0
+height = 8.0
+
+[sub_resource type="CapsuleShape2D" id=2]
+radius = 7.98017
+height = 2.49942
+
+[node name="Pot" type="Node2D"]
+script = ExtResource( 3 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="Shadow" type="Sprite" parent="StaticBody2D"]
+position = Vector2( 0, 6 )
+texture = ExtResource( 4 )
+
+[node name="Sprite" type="Sprite" parent="StaticBody2D"]
+texture = ExtResource( 2 )
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2( 0, 4 )
+rotation = 1.5708
+shape = SubResource( 1 )
+
+[node name="Hurtbox" parent="StaticBody2D" instance=ExtResource( 1 )]
+visible = false
+collision_layer = 8
+
+[node name="CollisionShape2D" parent="StaticBody2D/Hurtbox" index="0"]
+position = Vector2( 0.0468216, -0.374577 )
+shape = SubResource( 2 )
+
+[connection signal="area_entered" from="StaticBody2D/Hurtbox" to="." method="_on_Hurtbox_area_entered"]
+[connection signal="area_exited" from="StaticBody2D/Hurtbox" to="." method="_on_Hurtbox_area_exited"]
+
+[editable path="StaticBody2D/Hurtbox"]

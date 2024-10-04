@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/CaveLevel.mp3-0aefbdb34c848f60ef61b9041cd99dac.mp3str"
+
+[deps]
+
+source_file="res://Effects/CaveLevel.mp3"
+dest_files=[ "res://.import/CaveLevel.mp3-0aefbdb34c848f60ef61b9041cd99dac.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

@@ -1,0 +1,64 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://UI/Item1FullUI.png" type="Texture" id=1]
+[ext_resource path="res://UI/Item1EmpytyUI.png" type="Texture" id=2]
+[ext_resource path="res://Interactables/ItemUI.gd" type="Script" id=3]
+
+[node name="ItemUI" type="Control"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -41.0
+margin_top = 1.0
+margin_right = 41.0
+margin_bottom = 35.0
+script = ExtResource( 3 )
+
+[node name="Item1" type="Control" parent="."]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -20.0
+margin_right = 20.0
+margin_bottom = 40.0
+
+[node name="Item1Full" type="TextureRect" parent="Item1"]
+visible = false
+margin_right = 32.0
+margin_bottom = 32.0
+texture = ExtResource( 1 )
+expand = true
+stretch_mode = 2
+
+[node name="Item1Empty" type="TextureRect" parent="Item1"]
+margin_right = 32.0
+margin_bottom = 32.0
+texture = ExtResource( 2 )
+expand = true
+stretch_mode = 2
+
+[node name="Item2" type="Control" parent="."]
+margin_left = -21.0
+margin_top = -1.0
+margin_right = 19.0
+margin_bottom = 39.0
+
+[node name="Item2Full" type="TextureRect" parent="Item2"]
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="Item2Empty" type="TextureRect" parent="Item2"]
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="Item3" type="Control" parent="."]
+margin_left = 56.0
+margin_top = -1.0
+margin_right = 96.0
+margin_bottom = 39.0
+
+[node name="Item3Full" type="TextureRect" parent="Item3"]
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="Item3Empty" type="TextureRect" parent="Item3"]
+margin_right = 40.0
+margin_bottom = 40.0

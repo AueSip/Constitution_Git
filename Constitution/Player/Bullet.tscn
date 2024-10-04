@@ -1,0 +1,102 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://Enemies/Fire Particle.png" type="Texture" id=4]
+
+[sub_resource type="GDScript" id=6]
+script/source = "extends KinematicBody2D
+
+var velocity = Vector2.ZERO
+var speed = 125
+var knockback_vector = Vector2.ZERO
+
+func _physics_process(delta):
+	
+	var collision_info = move_and_collide(velocity.normalized() * delta * speed)
+
+func _on_Deletion_timeout():
+	queue_free()
+
+func _on_BulletHitbox_area_entered(area):
+	queue_free()
+
+
+"
+
+[sub_resource type="CircleShape2D" id=1]
+radius = 2.518
+
+[sub_resource type="StreamTexture" id=7]
+load_path = "res://.import/Bullet.png-57442ea84c636bce145c26610d4e0114.stex"
+
+[sub_resource type="GDScript" id=8]
+script/source = "extends \"res://Hitboxes Hurtboxes/Hitbox.gd\"
+
+var knockback_vector = Vector2.ZERO
+"
+
+[sub_resource type="CircleShape2D" id=2]
+radius = 4.10938
+
+[sub_resource type="Gradient" id=3]
+offsets = PoolRealArray( 0, 0.0769231, 0.472527, 0.681319, 0.923077, 1 )
+colors = PoolColorArray( 0, 0, 0, 0, 1, 0.926071, 0.00390625, 1, 1, 0.444234, 0.0078125, 1, 0.998875, 0.188463, 0.00331439, 1, 0.998047, 0, 0, 1, 1, 1, 1, 0 )
+
+[sub_resource type="GradientTexture" id=4]
+gradient = SubResource( 3 )
+
+[sub_resource type="ParticlesMaterial" id=5]
+resource_local_to_scene = true
+lifetime_randomness = 0.2
+emission_shape = 1
+emission_sphere_radius = 1.0
+flag_disable_z = true
+direction = Vector3( 15, 15, 15 )
+spread = 180.0
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 8.0
+initial_velocity_random = 1.0
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+angle_random = 1.0
+scale = 1.2
+scale_random = 1.0
+color_ramp = SubResource( 4 )
+
+[node name="KinematicBody2D" type="KinematicBody2D"]
+collision_layer = 64
+collision_mask = 8
+script = SubResource( 6 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2( 0.59375, -0.515625 )
+shape = SubResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="."]
+texture = SubResource( 7 )
+offset = Vector2( 0, -2 )
+
+[node name="Deletion" type="Timer" parent="."]
+wait_time = 0.8
+autostart = true
+
+[node name="BulletHitbox" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 8
+script = SubResource( 8 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BulletHitbox"]
+position = Vector2( 0.453125, -0.5 )
+shape = SubResource( 2 )
+
+[node name="Particles2D" type="Particles2D" parent="."]
+position = Vector2( 1, -1 )
+amount = 50
+speed_scale = 0.5
+explosiveness = 0.1
+randomness = 0.5
+process_material = SubResource( 5 )
+texture = ExtResource( 4 )
+
+[connection signal="timeout" from="Deletion" to="." method="_on_Deletion_timeout"]
+[connection signal="area_entered" from="BulletHitbox" to="." method="_on_BulletHitbox_area_entered"]

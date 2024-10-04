@@ -1,0 +1,55 @@
+[gd_scene load_steps=11 format=2]
+
+[ext_resource path="res://Interactables/heart.png" type="Texture" id=1]
+[ext_resource path="res://Enemies/PlayerDetectionZone.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Interactables/Heart.gd" type="Script" id=3]
+[ext_resource path="res://Shadows/SmallShadow.png" type="Texture" id=4]
+
+[sub_resource type="AtlasTexture" id=2]
+atlas = ExtResource( 1 )
+region = Rect2( 0, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=3]
+atlas = ExtResource( 1 )
+region = Rect2( 32, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=4]
+atlas = ExtResource( 1 )
+region = Rect2( 64, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=5]
+atlas = ExtResource( 1 )
+region = Rect2( 96, 0, 32, 32 )
+
+[sub_resource type="SpriteFrames" id=6]
+animations = [ {
+"frames": [ SubResource( 2 ), SubResource( 3 ), SubResource( 4 ), SubResource( 5 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
+
+[sub_resource type="CircleShape2D" id=1]
+radius = 1.94838
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource( 3 )
+
+[node name="Sprite" type="Sprite" parent="."]
+position = Vector2( -0.278404, 6.23629 )
+texture = ExtResource( 4 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+frames = SubResource( 6 )
+speed_scale = 0.3
+playing = true
+
+[node name="PlayerDetectionZone" parent="." instance=ExtResource( 2 )]
+
+[node name="CollisionShape2D" parent="PlayerDetectionZone" index="0"]
+position = Vector2( -0.478007, 0.108609 )
+shape = SubResource( 1 )
+
+[connection signal="body_entered" from="PlayerDetectionZone" to="." method="_on_PlayerDetectionZone_body_entered"]
+
+[editable path="PlayerDetectionZone"]
